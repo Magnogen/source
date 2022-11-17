@@ -1,0 +1,10 @@
+// jshint esversion: 11
+const $ = query => document.querySelector(query);
+const $$ = query => document.querySelectorAll(query);
+EventTarget.prototype.on = function (...args) { return this.addEventListener(...args) };
+EventTarget.prototype.trigger = function (name, options={}) { return this.dispatchEvent(Object.assign(new Event(name), options)) };
+
+const min = (a, b) => a < b ? a : b;
+const max = (a, b) => a > b ? a : b;
+const rand = (a, b) => a==void 0 ? Math.random() : ( b==void 0 ? Math.random()*a : a+Math.random()*(b-a) );
+const choose = arr => arr[0|(rand(arr.length))];
