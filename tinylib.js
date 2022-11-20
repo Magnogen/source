@@ -12,5 +12,5 @@ EventTarget.prototype.trigger = function (name, options={}) {
 
 const min = (a, b) => a < b ? a : b;
 const max = (a, b) => a > b ? a : b;
-const rand = (a, b) => a==void 0 ? Math.random() : ( b==void 0 ? Math.random()*a : a+Math.random()*(b-a) );
+const rand = (a=1, b=0) => a+Math.random()*(b-a);
 const choose = arr => arr[0|(rand(arr.length))];
