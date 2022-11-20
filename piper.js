@@ -1,6 +1,6 @@
 // jshint esversion: 11
 const Pipe = value => ({
-    get val() { return value },
+    value,
     do:    f  => Pipe(f(value)),
     abs:   () => Pipe(Math.abs(value)),
     floor: () => Pipe(Math.floor(value)),
