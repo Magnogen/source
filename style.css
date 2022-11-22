@@ -7,31 +7,23 @@
 */
 
 html {
-    padding: 0;
-    margin: 0;
+    padding: 0; margin: 0;
     height: 100%;
-}
-
-body {
-    padding: 0;
-    margin: 0;
+} body {
+    padding: 0; margin: 0;
     font-family: "Poppins", sans-serif;
     font-size: 15px;
     line-height: 1.667em;
     box-sizing: border-box;
-}
-
-body.dark {
+} body.dark {
     background: #0d1a26;
     color: #fff;
-}
-
-body.blue {
+} body.blue {
     background: linear-gradient(to bottom, #004cff 9.75em, #0032a8);
     background-attachment: fixed;
     color: #fff;
 }
-
+  
 a {
     text-decoration: none;
     background: linear-gradient(to right, #80a6ff, #80a6ff);
@@ -40,20 +32,15 @@ a {
     background-repeat: no-repeat;
     transition: background 0.2s, color 0.2s;
     color: #80a6ff;
-}
-
-a:hover {
+} a:hover {
     background: linear-gradient(to right, #ccdbff, #ccdbff);
     background-size: 100% 1px;
     background-position: 50% 100%;
     background-repeat: no-repeat;
     color: #ccdbff;
 }
-
-a:active {
-    color: #004cff;
-}
-
+a:active  { color: #004cff; }
+  
 code {
     font-family: "Fira Code", monospace;
     display: block;
@@ -63,28 +50,12 @@ code {
     font-size: 0.75em;
     line-height: 1.8em;
 }
-
-code [str] {
-    color: #bfb
-}
-
-code [key] {
-    color: #fbb
-}
-
-code [var] {
-    color: #fff
-}
-
-code [num] {
-    color: #bbf
-}
-
-code [com] {
-    font-style: italic;
-    color: #bbb
-}
-
+code [str] { color: #bfb }
+code [key] { color: #fbb }
+code [var] { color: #fff }
+code [num] { color: #bbf }
+code [com] { font-style: italic; color: #bbb }
+  
 header {
     pointer-events: none;
     position: -webkit-sticky;
@@ -92,41 +63,28 @@ header {
     padding: 3em 0em;
     top: 0;
     z-index: 1;
-}
-
-body.blue header {
+} body.blue header {
     background: #004cffaa;
     backdrop-filter: blur(0.5em);
-}
-
-body.dark header {
+} body.dark header {
     background: linear-gradient(to bottom, #0d1a26ff 25%, #0d1a2600 100%),
-        radial-gradient(closest-side, #0d1a26cc 25%, #0d1a2600 90%);
-    /*   background: #00000010; */
-}
-
-body.dark header:after {
+                radial-gradient(closest-side, #0d1a26cc 25%, #0d1a2600 90%);
+/*   background: #00000010; */
+} body.dark header:after {
     content: '';
     position: absolute;
     z-index: -1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     backdrop-filter: blur(0.05em);
     -webkit-mask: linear-gradient(#000f 50%, #0000);
-    mask: linear-gradient(#000f 50%, #0000);
-}
-
-h1.title {
+            mask: linear-gradient(#000f 50%, #0000);
+} h1.title {
     font-weight: normal;
     margin: 0;
     font-size: 2em;
     letter-spacing: 0.5em;
     text-align: center;
-}
-
-h2.greet {
+} h2.greet {
     font-weight: normal;
     margin: 0;
     margin-top: 1em;
@@ -134,32 +92,24 @@ h2.greet {
     display: flex;
     justify-content: center;
     text-align: center;
-}
-
-h2.greet>hr {
+} h2.greet > hr {
     border-style: none;
     max-width: 4em;
     width: 20%;
     margin: auto 0.5em;
     height: 1px;
 }
-
-h2.greet>hr:first-child {
+h2.greet > hr:first-child {
     background: linear-gradient(to left, #ffff, #fff0);
-}
-
-h2.greet>hr:last-child {
+} h2.greet > hr:last-child {
     background: linear-gradient(to right, #ffff, #fff0);
 }
-
-body.dark h2.greet>hr:first-child {
+body.dark h2.greet > hr:first-child {
     background: linear-gradient(to left, #88ff, #88f0);
-}
-
-body.dark h2.greet>hr:last-child {
+} body.dark h2.greet > hr:last-child {
     background: linear-gradient(to right, #88ff, #88f0);
 }
-
+  
 main {
     max-width: calc(1024px - 2em);
     margin: 0 auto;
@@ -169,28 +119,20 @@ main {
     justify-content: center;
     flex-wrap: wrap;
     align-items: start;
-}
-
-article {
+} article {
     width: calc(50% - 4em - 1.5em);
     min-width: 18em;
     padding: 1em 2em;
     margin: 0.75em;
     border-radius: 1em;
-}
-
-article:first-child {
+} article:first-child {
     width: calc(2*max(18em, 50%) + 4em + 1.5em);
-}
-
-@media (max-width: 49.1em) {
+} @media (max-width: 49.1em) {
     article {
         width: 100%;
         margin: 0.75em;
     }
-}
-
-body.blue article {
+} body.blue article {
     background-color: #fff;
     color: #000;
     box-shadow:
@@ -199,81 +141,54 @@ body.blue article {
         6.2px 12.5px 10px rgba(0, 0, 0, 0.09),
         11.1px 22.3px 17.9px rgba(0, 0, 0, 0.11);
     transition: transform 0.2s;
-}
-
-body.dark article {
+} body.dark article {
     background: radial-gradient(farthest-side, #2d3943ff 80%, #2d394300 110%),
-        linear-gradient(#fff2, #fff2);
+                linear-gradient(#fff2, #fff2);
     color: #fff;
     transition: 0.2s;
-}
-
-body.blue article.highlight {}
-
-body.dark article.highlight {
+} body.blue article.highlight {
+} body.dark article.highlight {
     background-color: #ffffff28;
-}
-
-article>h3 {
+} article > h3 {
     color: #0032a8;
     font-size: 1.25em;
     margin: 0;
-}
-
-body.dark article>h3 {
+} body.dark article > h3 {
     color: #ccdbff;
     font-size: 1.25em;
     margin: 0;
-}
-
-article>h3>i {
+} article > h3 > i {
     margin: 0 0.5em 0 0;
-}
-
-article>i {
+} article > i {
     margin: 0 0.5em;
-}
-
-article>p {
+} article > p {
     margin: 0.5em 0;
-}
-
-div[space] {
-    height: 120vh;
-}
-
-footer main>article:first-child>h3 {
+  }
+div[space] { height: 120vh; }
+  
+footer main > article:first-child > h3 {
     text-align: center;
-}
-
-footer main>article:first-child>h3>i {
+} footer main > article:first-child > h3 > i {
     margin: 0 0.5em;
-}
-
-footer main>article.locked {
+} footer main > article.locked {
     color: #646464;
     background-color: #00000044;
-}
-
-footer main>article.locked>h3 {
+} footer main > article.locked > h3 {
     color: #828282;
-}
-
-footer main>article.locked>p {
+} footer main > article.locked > p {
     display: none;
 }
-
 footer {
     max-width: calc(1024px - 2em);
     margin: 0 auto;
     padding: 1em 2em;
 }
-
+  
 canvas[background] {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     width: 100vw;
     height: 100vh;
     z-index: -1;
 }
+  
