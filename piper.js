@@ -19,4 +19,4 @@ const Pipe = value => ({
     sqrt:  () => Pipe(Math.sqrt(value)),
     exp:   (v=Math.E) => Pipe(v ** value),
     log:   (v=Math.E) => Pipe(Math.log(value) / Math.log(v)),
-})
+});
