@@ -1,8 +1,9 @@
 /*  Colours: 
-    - DarkBlue: #0032a];
-    - LightBlue: #004cff[ff];
-    - LightestBlue: #80a8ff[ff];
-    - White: #fff[ff];
+    - DarkBlue:    #0032a8;
+    - LightBlue:   #004cff;
+    - LighterBlue: #80a6ff;
+    - OffWhite:    #ccdbff;
+    - White:       #ffffff;
 */
 
 html {
@@ -29,6 +30,28 @@ body.blue {
     background: linear-gradient(to bottom, #004cff 9.75em, #0032a8);
     background-attachment: fixed;
     color: #fff;
+}
+
+a {
+    text-decoration: none;
+    background: linear-gradient(to right, #80a6ff, #80a6ff);
+    background-size: 0% 1px;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    transition: background 0.2s, color 0.2s;
+    color: #80a6ff;
+}
+
+a:hover {
+    background: linear-gradient(to right, #ccdbff, #ccdbff);
+    background-size: 100% 1px;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    color: #ccdbff;
+}
+
+a:active {
+    color: #004cff;
 }
 
 code {
@@ -198,7 +221,7 @@ article>h3 {
 }
 
 body.dark article>h3 {
-    color: #a6c1ff;
+    color: #ccdbff;
     font-size: 1.25em;
     margin: 0;
 }
@@ -213,22 +236,6 @@ article>i {
 
 article>p {
     margin: 0.5em 0;
-}
-
-article a:link {
-    color: inherit;
-}
-
-article a:visited {
-    color: #a6c1ff;
-}
-
-article a:hover {
-    color: #004cff;
-}
-
-article a:active {
-    color: #0032a8;
 }
 
 div[space] {
