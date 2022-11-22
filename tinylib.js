@@ -18,3 +18,11 @@ const mod = (v, d) => v < 0 ? (v%d+d)%d : v%d;
 
 const rand = (a=1, b=0) => a+Math.random()*(b-a);
 const choose = arr => arr[0|(rand(arr.length))];
+const shuffle = arr => {
+    let i = arr.length, ri = 0|rand(i);
+    while (i-- > 0) {
+        [arr[i], arr[ri]] = [arr[ri], arr[i]];
+        ri = 0|rand(i);
+    }
+    return arr;
+};
