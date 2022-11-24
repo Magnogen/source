@@ -10,6 +10,8 @@ EventTarget.prototype.trigger = function (name, options={}) {
     return this.dispatchEvent(event)
 };
 
+const frame = () => new Promise(requestAnimationFrame);
+
 const abs = (v)    => v < 0 ? -v : v;
 const max = (a, b) => a < b ? b : a;
 const min = (a, b) => a < b ? a : b;
