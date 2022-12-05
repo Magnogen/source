@@ -55,7 +55,7 @@ const seed_rand = (seed) => {
     }
 }
 
-// Thanks again, bryc :)
+// Thanks again for the string hash, bryc :)
 // https://stackoverflow.com/a/52171480/7429566
 const hash = (str, seed = 0) => {
   let h1 = 0xdeadbeef ^ seed,
