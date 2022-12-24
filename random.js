@@ -2,10 +2,10 @@ const rand = (a=1, b=0) => a+Math.random()*(b-a);
 const randpom = (a=1, b=-a) => rand(a, b);
 const choose = (arr) => arr[0|(rand(arr.length))];
 const shuffle = (arr) => {
-    let i = arr.length, ri = 0|rand(i);
+    let i = arr.length, j = 0|rand(i);
     while (i-- > 0) {
-        [arr[i], arr[ri]] = [arr[ri], arr[i]];
-        ri = 0|rand(i);
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+        j = 0|rand(i);
     }
     return arr;
 };
@@ -22,10 +22,10 @@ const Mulberry = (seed) => {
     };
     const rand = (a=1, b=0) => a+(state=hash(state))/0x100000000*(b-a);
     const shuffle = (arr) => {
-        let i = arr.length, ri = 0|rand(i);
+        let i = arr.length, j = 0|rand(i);
         while (i-- > 0) {
-            [arr[i], arr[ri]] = [arr[ri], arr[i]];
-            ri = 0|rand(i);
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+            j = 0|rand(i);
         }
         return arr;
     };
