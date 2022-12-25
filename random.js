@@ -1,6 +1,6 @@
 const rand = (a=1, b=0) => a+Math.random()*(b-a);
 const randpom = (a=1, b=-a) => rand(a, b);
-const chance = (prob) => rand() < prob,
+const chance = (prob) => rand() < prob;
 const choose = (arr) => arr[0|(rand(arr.length))];
 const shuffle = (arr) => {
     let i = arr.length, j = 0|rand(i);
