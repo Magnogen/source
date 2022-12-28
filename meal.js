@@ -7,8 +7,6 @@ const Meal = (plate, tokensOnly = false) => {
         name: 'MealError',
         message: `Expected String and received ${typeof plate}`
     };
-    let plate = plate;
-    let tokensOnly = tokensOnly;
     let index = 0;
     let line = 0;
     let column = 0;
