@@ -34,7 +34,7 @@ const Meal = (plate, tokensOnly = false) => {
                 return edible;
             }
             else if (typeof edible == 'function') {
-                const copy = new Elements.Meal(this.plate, tokensOnly);
+                const copy = Meal(this.plate, tokensOnly);
                 copy.index = this.index;
                 copy.line = this.line;
                 copy.column = this.column;
@@ -98,7 +98,7 @@ Meal.n = (edible, amount) => food => {
 Meal.need = (edible, messenger) => food => {
     const content = food.eat(edible)
     if (content == null) throw {
-        name: 'Elements.Meal.Need',
+        name: 'Meal.Need',
         message: typeof messenger == 'function' ? messenger(food) : messenger
     };
     return content;
@@ -107,14 +107,14 @@ Meal.not = edible => food => food.eat(edible) == null ? food.eat(food.first()) :
 
 Meal.ignore = edible => food => food.eat(edible) == null ? null : '';
 Meal.maybe = edible => food => (food.eat(edible) ?? '');
-Meal.upto = edible => food => food.eat(Elements.Meal.many(Elements.Meal.not(edible)));
+Meal.upto = edible => food => food.eat(Meal.many(Meal.not(edible)));
 Meal._ = food => {
-    const out = food.eat(Elements.Meal.maybe(Elements.Meal.many(Elements.Meal.any(' ', '\t'))));
+    const out = food.eat(Meal.maybe(Meal.many(Meal.any(' ', '\t'))));
     if (out === null) return null;
     return food.tokensOnly ? out : out.join('');
 }
 Meal.__ = food => {
-    const out = food.eat(Elements.Meal.many(Elements.Meal.any(' ', '\t')));
+    const out = food.eat(Meal.many(Meal.any(' ', '\t')));
     if (out === null) return null;
     return food.tokensOnly ? out : out.join('');
 }
