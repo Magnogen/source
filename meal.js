@@ -12,7 +12,7 @@ const Meal = (plate, tokensOnly = false) => {
     let column = 0;
     return {
         plate, tokensOnly, index, line, column,
-        finished() { return this.plate.length >= this.index },
+        finished() { return this.index >= this.plate.length },
         first(check) {
             if (this.finished()) return;
             if (typeof check == 'string')
