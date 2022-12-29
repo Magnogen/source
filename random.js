@@ -1,17 +1,17 @@
-const rand = (a=1, b=0) => a+Math.random()*(b-a);
-const randpom = (a=1, b=-a) => rand(a, b);
+const rand = (a = 1, b = 0) => a + Math.random() * (b - a);
+const randpom = (a = 1, b = -a) => rand(a, b);
 const chance = (prob) => rand() < prob;
-const choose = (arr) => arr[0|rand(arr.length)];
+const choose = (arr) => arr[0 | rand(arr.length)];
 const shuffle = (arr) => {
-    let i = arr.length, j = 0|rand(i);
+    let i = arr.length, j = 0 | rand(i);
     while (i-- > 0) {
         [arr[i], arr[j]] = [arr[j], arr[i]];
-        j = 0|rand(i);
+        j = 0 | rand(i);
     }
     return arr;
 };
 
-const Mulberry = (seed) => {
+const Mulberry = (seed = 0 | rand(0xffffffff)) => {
     let state = seed;
     // Seeded mulberry random adapted from bryc
     // https://stackoverflow.com/a/47593316/7429566
@@ -21,34 +21,38 @@ const Mulberry = (seed) => {
         t ^= t + Math.imul(t ^ t >>> 7, t | 61);
         return (t ^ t >>> 14) >>> 0;
     };
-    const rand = (a=1, b=0) => a+(state=hash(state))/0x100000000*(b-a);
+    const rand = (a = 1, b = 0) => a + (state = hash(state)) / 0x100000000 * (b - a);
     const shuffle = (arr) => {
-        let i = arr.length, j = 0|rand(i);
+        let i = arr.length, j = 0 | rand(i);
         while (i-- > 0) {
             [arr[i], arr[j]] = [arr[j], arr[i]];
-            j = 0|rand(i);
+            j = 0 | rand(i);
         }
         return arr;
     };
-    const dimension_primes = ((digits) => {
-        const max = 0|(10**digits), sqrt = 0|(max**0.5);
-        let numbers = [...Array(max)].map((e,i) => i-1?i:0);
-        const ij = [...Array(max*sqrt)]
-            .map((e, i) => ({ i: i%sqrt, j: 0|(i/sqrt) }))
-            .filter(({ i, j }) => i > 1 && j > 1);
-        for (let { i, j } of ij) numbers[i * j] = 0;
-        return shuffle(numbers.filter(n => n && n > 10**(digits-1)));
-    })(3.75);
+    const dimension_primes = ((digits, n) => {
+        const gcd = (a, b) => b == 0 ? a : gcd(b, a % b);
+
+        let result = [0 | rand(10 ** (digits - 1), 10 ** digits)];
+        for (let i = 1; i < n; i++) {
+            let candidate = 0 | rand(10 ** (digits - 1), 10 ** digits);
+            while (result.some(num => gcd(candidate, num) != 1)) {
+                candidate = 0 | rand(10 ** (digits - 1), 10 ** digits);
+            }
+            result.push(candidate);
+        }
+        return result;
+    })(6, 8);
     const hash_n = (...values) => {
         let value = seed;
-        for (let v in values) value ^= dimension_primes[v]*values[v];
-        return hash(value)/0x100000000;
+        for (let v in values) value ^= dimension_primes[v] * values[v];
+        return hash(value) / 0x100000000;
     }
     return {
         seed, rand, hash: hash_n,
-        randpom: (a=1, b=-a) => rand(a, b),
+        randpom: (a = 1, b = -a) => rand(a, b),
         chance: (prob) => rand() < prob,
-        choose: (arr) => arr[0|rand(arr.length)],
+        choose: (arr) => arr[0 | rand(arr.length)],
         shuffle
     }
 };
