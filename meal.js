@@ -74,7 +74,7 @@ Meal.many = edible => food => {
     let content = [], current;
     while (true) {
         current = food.eat(edible);
-        if (current === null) return null;
+        if (current == null) break;
         content.push(current);
     }
     if (content.length == 0) return null;
