@@ -12,7 +12,7 @@ const Meal = (plate, tokensOnly = false) => {
     let column = 0;
     return {
         plate, tokensOnly, index, line, column,
-        finished: () => this.plate.length == this.index,
+        finished() { return this.plate.length >= this.index },
         first(check) {
             if (this.finished()) return;
             if (typeof check == 'string')
@@ -22,7 +22,7 @@ const Meal = (plate, tokensOnly = false) => {
             if (typeof check == 'undefined')
                 return this.plate[this.index];
         },
-        leftover: () => this.plate.substring(this.index, this.plate.length),
+        leftover() { return this.plate.substring(this.index, this.plate.length) },
         eat(edible, tokensOnly = this.tokensOnly) {
             if (typeof edible == 'string') {
                 if (!this.first(edible)) return null;
