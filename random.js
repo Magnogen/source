@@ -45,7 +45,7 @@ const Mulberry = (seed = 0 | rand(0xffffffff)) => {
     })(6, 8);
     const hash_n = (...values) => {
         let value = seed;
-        for (let v in values) value ^= dimension_primes[v] * values[v];
+        for (let v in values) value ^= dimension_primes[v] * (0 | values[v]);
         return hash(value) / 0x100000000;
     }
     return {
