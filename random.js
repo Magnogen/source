@@ -47,9 +47,23 @@ const Mulberry = (seed = 0 | rand(0xffffffff)) => {
         let value = seed;
         for (let v in values) value ^= dimension_primes[v] * (0 | values[v]);
         return hash(value) / 0x100000000;
-    }
+    };
+    const noise = (() => {
+        const lerp = (a, b, t) => a*(1-t) + b*t;
+        const smooth = (x) => x*x*(3-2*x);
+        const f = (index, map, coords) => {
+            if (index == coords.length)
+                return hash(...coords.map((e, i) => 0|e + (+map[i])));
+            return lerp(
+                f(index+1, map+'0', coords),
+                f(index+1, map+'1', coords),
+                smooth(coords[index] - (0|coords[index]))
+            );
+        };
+        return (...coords) => f(0, '', coords);
+    })();
     return {
-        seed, rand, hash: hash_n,
+        seed, rand, hash: hash_n, noise,
         randpom: (a = 1, b = -a) => rand(a, b),
         chance: (prob) => rand() < prob,
         choose: (arr) => arr[0 | rand(arr.length)],
