@@ -99,7 +99,7 @@ Colour.hsl2rgb = (h = 0, s = 1, l = 0.5) => {
     return [255 * f(0), 255 * f(8), 255 * f(4)]
 }
 // r[0-255] g[0-255] b[0-255] -> h[0-360] s[0-1] l[0-1]
-Colour.const rgb2hsl = (_r = 0, _g = 0, _b = 0) => {
+Colour.rgb2hsl = (_r = 0, _g = 0, _b = 0) => {
     let [r, g, b] = [_r / 255, _g / 255, _b / 255];
     let v = Math.max(r, g, b), c = v - Math.min(r, g, b), f = (1 - Math.abs(v + v - c - 1));
     let h = c && ((v == r) ? (g - b) / c : ((v == g) ? 2 + (b - r) / c : 4 + (r - g) / c));
