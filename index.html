@@ -38,7 +38,8 @@
           <code>
             <span key>let</span> <span var>clicks</span> = <span num>0</span>;<br>
             $(<span str>'button'</span>).on(<span str>'click'</span>, (<span var>event</span>) =&gt; {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span str>'Hi!'</span>);<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;clicks++;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span str>'Hi!'</span> + clicks);<br>
             });
           </code>
         </p>
