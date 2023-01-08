@@ -53,14 +53,14 @@ const Mulberry = (seed = 0 | rand(0xffffffff)) => {
         const smooth = (x) => x*x*(3-2*x);
         const f = (index, map, coords) => {
             if (index == coords.length)
-                return hash_n(...coords.map((e, i) => 0|e + (+map[i])));
+                return hash_n(...coords.map((e, i) => 0|e + (map>>i & 1)));
             return lerp(
-                f(index+1, map+'0', coords),
-                f(index+1, map+'1', coords),
+                f(index+1, map | 0<<index, coords),
+                f(index+1, map | 1<<index, coords),
                 smooth(coords[index] - (0|coords[index]))
             );
         };
-        return (...coords) => f(0, '', coords);
+        return (...coords) => f(0, 0, coords);
     })();
     return {
         seed, rand, hash: hash_n, noise,
