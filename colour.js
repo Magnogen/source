@@ -108,4 +108,4 @@ Colour.rgb2hsl = (_r = 0, _g = 0, _b = 0) => {
 
 // c[0-255] m[0-255] y[0-255] <-> r[0-255] g[0-255] b[0-255]
 Colour.cmy2rgb = (c = 0, m = 0, y = 0) => [255 - c, 255 - m, 255 - y];
-Colour.rgb2cmy = cmy2rgb;
+Colour.rgb2cmy = Colour.cmy2rgb;
