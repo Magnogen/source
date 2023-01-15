@@ -62,11 +62,11 @@ const Mulberry = (() => {
             const smooth = (x) => x*x*(3-2*x);
             const f = (index, map, coords) => {
                 if (index == coords.length)
-                    return hash(...coords.map((e, i) => 0|e + (map>>i & 1)));
+                    return hash(...coords.map((e, i) => 0|e-(e<0) + ((map>>i)&1)));
                 return lerp(
-                    f(index+1, map | 0<<index, coords),
-                    f(index+1, map | 1<<index, coords),
-                    smooth(coords[index] - (0|coords[index]))
+                    f(index+1, map | (0<<index), coords),
+                    f(index+1, map | (1<<index), coords),
+                    smooth(coords[index] - (0|coords[index] - (coords[index]<0)))
                 );
             };
             return (...coords) => f(0, 0, coords);
