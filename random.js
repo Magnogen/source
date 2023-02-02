@@ -21,6 +21,7 @@ const Mulberry = (() => {
     ];
     return (seed = 0 | rand(0xffffffff)) => {
         let state = seed;
+        let terms = {};
         // Seeded mulberry random adapted from bryc
         // https://stackoverflow.com/a/47593316/7429566
         const hash_int = (value) => {
@@ -30,7 +31,16 @@ const Mulberry = (() => {
             return (t ^ (t >>> 14)) >>> 0;
         };
 
-        const rand = (a = 1, b = 0) => a + (state = hash_int(state)) / 0x100000000 * (b - a);
+        const rand = (a = 1, b = 0) => {
+          const r = a + (state = hash_int(state)) / 0x100000000 * (b - a);
+          if (terms[r]) {
+            state++;
+            terms = {};
+            return rand(a, b);
+          }
+          terms[r] = true;
+          return r;
+        };
         const randpom = (a = 1, b = -a) => rand(a, b);
         const choose = (arr) => arr[0 | rand(arr.length)];
         const shuffle = (arr) => {
