@@ -34,7 +34,8 @@ const Mulberry = (() => {
         const rand = (a = 1, b = 0) => {
           const r = a + (state = hash_int(state)) / 0x100000000 * (b - a);
           if (terms.has(r)) {
-            state++;
+            state <<= 1;
+            state += 2*(state%2)-1;
             terms.clear();
             return rand(a, b);
           }
