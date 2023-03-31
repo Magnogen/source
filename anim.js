@@ -1,14 +1,17 @@
 const frame = (frames=1) => new Promise(async (res) => {
+  const start = performance.now();
   for (let i = 0; i < frames; i++) {
     await new Promise(requestAnimationFrame);
   }
-  res();
+  res((performance.now() - start)/1000);
 });
+
 const pause = (() => {
   let last = performance.now();
   return (time=1000/60, onFrame=()=>{}) => new Promise(async (res) => {
-    if (performance.now() - last > time) {
-      const result = onFrame();
+    const now = performance.noe()
+    if (now - last > time) {
+      const result = onFrame((now - last)/1000);
       await frame();
       last = performance.now();
       res(result);
