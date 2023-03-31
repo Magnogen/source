@@ -9,7 +9,7 @@ const frame = (frames=1) => new Promise(async (res) => {
 const pause = (() => {
   let last = performance.now();
   return (time=1000/60, onFrame=()=>{}) => new Promise(async (res) => {
-    const now = performance.noe()
+    const now = performance.now()
     if (now - last > time) {
       const result = onFrame((now - last)/1000);
       await frame();
