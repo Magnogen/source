@@ -23,3 +23,31 @@ const vec2 = (() => {
         dot,
     })
 })();
+
+const vec3 = (() => {
+    function add(other) { return vec3(this.x + other.x, this.y + other.y, this.z + other.z) }
+    function sub(other) { return vec3(this.x - other.x, this.y - other.y, this.z - other.z) }
+    function mul(val)   { return vec3(this.x * val, this.y * val, this.z * val) }
+    function div(val)   { return vec3(this.x / val, this.y / val, this.z / val) }
+    function length()   { return Math.hypot(this.x, this.y, this.z) }
+    function dot(other) { return this.x * other.x + this.y * other.y + this.z * other.z }
+    function cross(other) {
+        return vec3(
+            this.y * other.z - this.z * other.y,
+            this.z * other.x - this.x * other.z,
+            this.x * other.y - this.y * other.x
+        )
+    }
+    function normalize() {
+        const len = this.length();
+        return vec3(this.x / len, this.y / len, this.z / len);
+    }
+    return (x, y, z) => ({
+        x, y, z,
+        add, sub,
+        mul, div,
+        length,
+        dot, cross,
+        normalize,
+    })
+})();
