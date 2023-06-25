@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://src.magnogen.xyz/style.css" />
   </head>
   <body class="dark">
     <header>
@@ -31,37 +31,151 @@
         <i class="fa-brands fa-reddit-alien"></i><a href="https://www.reddit.com/u/MagnogenOnTheMoon">Reddit - u/MagnogenOnTheMoon</a><br>
         <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen">GitHub - /Magnogen</a><br>
       </article>
-      <article tinylib>
-        <h3><i class="fa fa-file-code"></i>TinyLib</h3>
+      <article anim>
+        <h3><i class="fa fa-file-code"></i>Anim</h3>
         <p>
-          Tiny library for simpler things, featuring shorter event listeners and query selectors.<br>
+          Animate like a pro. A range of features from frame control to easing functions to tweens.
+          <br>
           <code>
-            <span key>let</span> <span var>clicks</span> = <span num>0</span>;<br>
-            $(<span str>'button'</span>).on(<span str>'click'</span>, (<span var>event</span>) =&gt; {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;clicks++;<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span str>'Hi!'</span> + clicks);<br>
+            <span key>let</span> <span var>opts</span> = Tweenify(<span var>obj</span>, <span str>'prop'</span>, {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;start: <span num>0</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;end: <span num>100</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;length: <span str>'1s'</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;ease: Ease.Linear<br>
             });
           </code>
         </p>
-        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/tinylib.js">Open in Browser</a><br>
-        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/tinylib.js">View on GitHub</a><br>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/anim.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/anim.js">View on GitHub</a><br>
       </article>
-      <article piper>
-        <h3><i class="fa fa-file-code"></i>Piper</h3>
+      <article colour>
+        <h3><i class="fa fa-file-code"></i>Colour</h3>
         <p>
-          Do math a different way.
+          Makes colour manipulation a breeze, provides support for RGBA, HSLA, and CMYA formats.
+          <br>
           <code>
-            <span key>let</span> <span var>num</span> = Pipe(<span num>1.5</span>)<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;.pow(<span num>3</span>)<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;.add(<span num>2</span>)<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;.ceil();<br>
-            console.log(num.value);<br>
-            <span com>// == Math.ceil(Math.pow(1.5, 3) + 2)</span><br>
-            <span com>// -&gt; 6</span><br>
+            <span key>let</span> <span var>col</span> = Colour(<span str>'rgb'</span>, <span num>255</span>, <span num>0</span>, <span num>0</span>);<br>
+            <span var>colour</span>.toHex(); <span comment>// "#ff0000ff"</span>
           </code>
         </p>
-        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/piper.js">Open in Browser</a><br>
-        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/piper.js">View on GitHub</a><br>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/colour.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/colour.js">View on GitHub</a><br>
+      </article>
+      <article dom>
+        <h3><i class="fa fa-file-code"></i>Dom</h3>
+        <p>
+          Makes DOM manipulation tasks a piece of cake, offering shorthand methods for querying elements and managing events.
+          <br>
+          <code>
+            <span var>$</span>(<span str>'#myElem'</span>).on(<span str>'click'</span>, (<span var>event</span>) =&gt; {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span str>'Element clicked!'</span>);<br>
+            });
+          </code>
+        </p>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/dom.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/dom.js">View on GitHub</a><br>
+      </article>
+      <article iter>
+        <h3><i class="fa fa-file-code"></i>Iter</h3>
+        <p>
+          Traverse through multi-dimensional spaces with ease using this library, designed to simplify the process of iterating over complex structures.
+          <br>
+          <code>
+            <span key>let</span> <span var>mat</span> = Matrix({x: <span num>3</span>, y: <span num>3</span>}, <span key>true</span>);<br>
+            <span key>for</span> (<span key>let</span> <span var>point</span> <span key>of</span> <span var>mat</span>) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span var>point</span>);<br>
+            }
+          </code>
+        </p>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/iter.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/iter.js">View on GitHub</a><br>
+      </article>
+      <article limit>
+        <h3><i class="fa fa-file-code"></i>Limit</h3>
+        <p>
+          Ensure your numbers stay within the desired bounds, Clamp, Wrap, Fold, and Sigmoid operations.
+          <br>
+          <code>
+            <span key>let</span> <span var>limiter</span> = Limit(<span num>0</span>, <span num>10</span>);<br>
+            <span var>limiter</span>.clamp(<span num>11</span>); <span comment>// 10</span><br>
+            <span var>limiter</span>.wrap(<span num>11</span>); <span comment>// 1</span><br>
+            <span var>limiter</span>.fold(<span num>11</span>); <span comment>// 9</span><br>
+            <span var>limiter</span>.sigmoid(<span num>15</span>); <span comment>// 9.168...</span>
+          </code>
+        </p>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/limit.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/limit.js">View on GitHub</a><br>
+      </article>
+      <article meal>
+        <h3><i class="fa fa-file-code"></i>Meal</h3>
+        <p>
+          Feast on strings, perfect for parsing and syntax highlighting tasks.
+          <br>
+          <code>
+            <span key>let</span> <span var>food</span> = Meal(<span str>'Hello, World!'</span>);<br>
+            <span var>food</span>.eat(<span str>'Hello'</span>); <span comment>// "Hello"</span><br>
+            <span var>food</span>.first(<span num>2</span>); <span comment>// ", "</span>
+          </code>
+        </p>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/meal.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/meal.js">View on GitHub</a><br>
+      </article>
+      <article pen>
+        <h3><i class="fa fa-file-code"></i>Pen</h3>
+        <p>
+          A variety of pen operations for drawing. Inspired by Scratch, of all things.
+          <br>
+          <code>
+            <span key>let</span> <span var>ctx</span> = <span var>canvas</span>.getContext(<span str>'2d'</span>);<br>
+            <span key>let</span> <span var>pen</span> = Pen(<span var>ctx</span>);<br>
+            <span var>pen</span>.down();<br>
+            <span var>pen</span>.goto(<span num>50</span>, <span num>50</span>);<br>
+            <span var>pen</span>.up();
+          </code>
+        </p>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/pen.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/pen.js">View on GitHub</a><br>
+      </article>
+      <article random>
+        <h3><i class="fa fa-file-code"></i>Random</h3>
+        <p>
+          Generates random numbers and performs random operations, also with seeded Mulberry RNG.
+          <br>
+          <code>
+            <span key>let</span> <span var>num</span> = rand(<span num>1</span>, <span num>10</span>);<br>
+            <span key>let</span> <span var>arr</span> = [<span str>'a'</span>, <span str>'b'</span>, <span str>'c'</span>];<br>
+            <span key>let</span> <span var>choice</span> = choose(<span var>arr</span>);
+          </code>
+        </p>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/random.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/random.js">View on GitHub</a><br>
+      </article>
+      <article shader>
+        <h3><i class="fa fa-file-code"></i>Shader</h3>
+        <p>
+          This was mostly just a project to see if I could get the hang of Web Workers. turned out pretty good though.
+          <br>
+          <code>
+            <span key>const</span> <span var>shader</span> = Shader(<span var>canvas</span>, <span num>4</span>);<br>
+            <span var>shader</span>.shade(<span var>func</span>);
+          </code>
+        </p>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/shader.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/shader.js">View on GitHub</a><br>
+      </article>
+      <article vec>
+        <h3><i class="fa fa-file-code"></i>Vec</h3>
+        <p>
+          Manipulate 2D and 3D vectors, offers a range of operations for vector arithmetic.
+          <br>
+          <code>
+            <span key>const</span> <span var>v1</span> = vec2(<span num>1</span>, <span num>2</span>);<br>
+            <span key>const</span> <span var>v2</span> = vec2(<span num>3</span>, <span num>4</span>);<br>
+            <span key>const</span> <span var>sum</span> = <span var>v1</span>.add(<span var>v2</span>);
+          </code>
+        </p>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/vec.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/vec.js">View on GitHub</a><br>
       </article>
     </main>
     <div space></div>
