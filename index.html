@@ -38,10 +38,10 @@
           <br>
           <code>
             <span key>let</span> <span var>opts</span> = Tweenify(<span var>obj</span>, <span str>'prop'</span>, {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;start: <span num>0</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;end: <span num>100</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;length: <span str>'1s'</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;ease: Ease.Linear<br>
+            &nbsp;&nbsp;start: <span num>0</span>,<br>
+            &nbsp;&nbsp;end: <span num>100</span>,<br>
+            &nbsp;&nbsp;length: <span str>'1s'</span>,<br>
+            &nbsp;&nbsp;ease: Ease.Linear<br>
             });
           </code>
         </p>
@@ -55,7 +55,7 @@
           <br>
           <code>
             <span key>let</span> <span var>col</span> = Colour(<span str>'rgb'</span>, <span num>255</span>, <span num>0</span>, <span num>0</span>);<br>
-            <span var>colour</span>.toHex(); <span comment>// "#ff0000ff"</span>
+            <span var>colour</span>.toHex(); <span com>// "#ff0000ff"</span>
           </code>
         </p>
         <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/colour.js">Open in Browser</a><br>
@@ -67,8 +67,8 @@
           Makes DOM manipulation tasks a piece of cake, offering shorthand methods for querying elements and managing events.
           <br>
           <code>
-            <span var>$</span>(<span str>'#myElem'</span>).on(<span str>'click'</span>, (<span var>event</span>) =&gt; {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span str>'Element clicked!'</span>);<br>
+            $(<span str>'#myElem'</span>).on(<span str>'click'</span>, (<span var>event</span>) =&gt; {<br>
+            &nbsp;&nbsp;console.log(<span str>'Element clicked!'</span>);<br>
             });
           </code>
         </p>
@@ -81,9 +81,9 @@
           Traverse through multi-dimensional spaces with ease using this library, designed to simplify the process of iterating over complex structures.
           <br>
           <code>
-            <span key>let</span> <span var>mat</span> = Matrix({x: <span num>3</span>, y: <span num>3</span>}, <span key>true</span>);<br>
+            <span key>let</span> <span var>mat</span> = Matrix({x: <span num>3</span>, y: <span num>3</span>}, <span bol>true</span>);<br>
             <span key>for</span> (<span key>let</span> <span var>point</span> <span key>of</span> <span var>mat</span>) {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;console.log(<span var>point</span>);<br>
+            &nbsp;&nbsp;console.log(<span var>point</span>);<br>
             }
           </code>
         </p>
@@ -97,10 +97,10 @@
           <br>
           <code>
             <span key>let</span> <span var>limiter</span> = Limit(<span num>0</span>, <span num>10</span>);<br>
-            <span var>limiter</span>.clamp(<span num>11</span>); <span comment>// 10</span><br>
-            <span var>limiter</span>.wrap(<span num>11</span>); <span comment>// 1</span><br>
-            <span var>limiter</span>.fold(<span num>11</span>); <span comment>// 9</span><br>
-            <span var>limiter</span>.sigmoid(<span num>15</span>); <span comment>// 9.168...</span>
+            <span var>limiter</span>.clamp(<span num>11</span>); <span com>// 10</span><br>
+            <span var>limiter</span>.wrap(<span num>11</span>); <span com>// 1</span><br>
+            <span var>limiter</span>.fold(<span num>11</span>); <span com>// 9</span><br>
+            <span var>limiter</span>.sigmoid(<span num>15</span>); <span com>// 9.168...</span>
           </code>
         </p>
         <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/limit.js">Open in Browser</a><br>
@@ -113,8 +113,8 @@
           <br>
           <code>
             <span key>let</span> <span var>food</span> = Meal(<span str>'Hello, World!'</span>);<br>
-            <span var>food</span>.eat(<span str>'Hello'</span>); <span comment>// "Hello"</span><br>
-            <span var>food</span>.first(<span num>2</span>); <span comment>// ", "</span>
+            <span var>food</span>.eat(<span str>'Hello'</span>); <span com>// "Hello"</span><br>
+            <span var>food</span>.first(<span num>2</span>); <span com>// ", "</span>
           </code>
         </p>
         <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/meal.js">Open in Browser</a><br>
@@ -126,8 +126,7 @@
           A variety of pen operations for drawing. Inspired by Scratch, of all things.
           <br>
           <code>
-            <span key>let</span> <span var>ctx</span> = <span var>canvas</span>.getContext(<span str>'2d'</span>);<br>
-            <span key>let</span> <span var>pen</span> = Pen(<span var>ctx</span>);<br>
+            <span key>let</span> <span var>pen</span> = Pen(<span var>context</span>);<br>
             <span var>pen</span>.down();<br>
             <span var>pen</span>.goto(<span num>50</span>, <span num>50</span>);<br>
             <span var>pen</span>.up();
@@ -150,6 +149,31 @@
         <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/random.js">Open in Browser</a><br>
         <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/random.js">View on GitHub</a><br>
       </article>
+      <article scene>
+        <h3><i class="fa fa-file-code"></i>Scene</h3>
+        <p>
+          A library for creating and managing scenes in canvas-based animations. Allows you to generate frames and upload them to a server.
+          <br>
+          <code>
+            Scene(<span key>async function*</span> (<span var>time</span>) {<br>
+            &nbsp;&nbsp;<span key>while</span> (<span bol>true</span>) {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span key>const</span> <span var>hue</span> = <span num>360</span>*<span var>time</span>.getNow()/<span num>10</span>;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span var>context</span>.fillStyle = <span str>`hsl(${<span var>hue</span>}deg, 10%, 14%)`</span>;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span var>context</span>.fillRect(<span num>0</span>, <span num>0</span>, <span num>1920</span>, <span num>1080</span>);<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span key>yield</span> <span var>canvas</span>;<br>
+            &nbsp;&nbsp;}<br>
+            }, {<br>
+            &nbsp;&nbsp;title: <span str>'example'</span>,<br>
+            &nbsp;&nbsp;width: <span num>1920</span>,<br>
+            &nbsp;&nbsp;height: <span num>1080</span>,<br>
+            &nbsp;&nbsp;duration: <span num>10</span>,<br>
+            &nbsp;&nbsp;fps: <span num>30</span>,<br>
+            }).render();
+          </code>
+        </p>
+        <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/scene.js">Open in Browser</a><br>
+        <i class="fa-brands fa-github"></i><a href="https://github.com/Magnogen/source/blob/main/scene.js">View on GitHub</a><br>
+      </article>
       <article shader>
         <h3><i class="fa fa-file-code"></i>Shader</h3>
         <p>
@@ -157,7 +181,14 @@
           <br>
           <code>
             <span key>const</span> <span var>shader</span> = Shader(<span var>canvas</span>, <span num>4</span>);<br>
-            <span var>shader</span>.shade(<span var>func</span>);
+            <span var>shader</span>.shade((<span var>width</span>, <span var>height</span>) =&gt; (<span var>pos</span>) =&gt; {<br>
+            &nbsp;&nbsp;<span key>return</span> {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;r: <span var>pos</span>.x/<span var>width</span>*<span num>255</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;g: <span var>pos</span>.y/<span var>height</span>*<span num>255</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;b: <span num>0</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;a: <span num>255</span>,<br>
+            &nbsp;&nbsp;}<br>
+            });
           </code>
         </p>
         <i class="fa fa-file"></i><a href="https://src.magnogen.xyz/shader.js">Open in Browser</a><br>
