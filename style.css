@@ -46,15 +46,18 @@ code {
     display: block;
     padding: 0.5em 1em;
     border-radius: 0.5em;
+    color: #fff;
     background-color: #00162888;
     font-size: 0.75em;
     line-height: 1.8em;
 }
-code [str] { color: #bfb }
-code [key] { color: #fbb }
-code [var] { color: #fff }
-code [num] { color: #bbf }
+code [bol] { color: #fdb }
+code [clr] { color: #fff }
 code [com] { font-style: italic; color: #bbb }
+code [key] { color: #fbb }
+code [num] { color: #bbf }
+code [str] { color: #bfb }
+code [var] { color: #fbd }
   
 header {
     pointer-events: none;
