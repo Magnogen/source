@@ -65,7 +65,7 @@ const Mulberry = (() => {
         })(10 ** 6); // in the 1-99 million range
         const hash = (...values) => {
             let value = seed;
-            for (let v in values) value ^= dimension_primes[v] * (0 | values[v]);
+            for (let v in values) value ^= dimension_primes[v] * (0 | values[v] - values[v]<0);
             return hash_int(value) / 0x100000000;
         };
         const noise = (() => {
