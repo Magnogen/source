@@ -18,10 +18,14 @@ const Shader = async (canvas, N, libs=[]) => {
       let { imageData, xStart, yStart } = event.data;
       const data = imageData.data;
       for (let i = 0; i < data.length; i += 4) {
-        const x = xStart + (i / 4) % imageData.width;
-        const y = yStart + Math.floor(i / 4 / imageData.width);
-        const pixel = { r: data[i], g: data[i + 1], b: data[i + 2], a: data[i + 3] };
-        const newPixel = shadePixel({ x, y });
+        const newPixel = shadePixel({
+          x: xStart + (i >> 2) % imageData.width,
+          y: yStart + (i / imageData.width) >> 2,
+          r: data[i],
+          g: data[i + 1],
+          b: data[i + 2],
+          a: data[i + 3],
+        });
 
         data[i] = newPixel.r;
         data[i + 1] = newPixel.g;
