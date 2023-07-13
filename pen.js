@@ -23,6 +23,7 @@ const Pen = (ctx) => {
         draw();
     }
     const dot = () => { down(); up(); }
+    const isDown = () => pen_is_down;
 
     const goto = (x, y) => {
         [curr_x, curr_y] = [x, y];
@@ -44,6 +45,6 @@ const Pen = (ctx) => {
     const size = (size) => { pen_size = size; }
 
     return {
-        up, down, dot, goto, move, pos, color, size
+        up, down, dot, goto, move, pos, color, size, isDown
     }
 };
