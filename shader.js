@@ -20,7 +20,7 @@ const Shader = async (canvas, N, libs=[]) => {
       for (let i = 0; i < data.length; i += 4) {
         const newPixel = shadePixel({
           x: xStart + (i >> 2) % imageData.width,
-          y: yStart + (i / imageData.width) >> 2,
+          y: yStart + (i >> 2) / imageData.width,
           r: data[i],
           g: data[i + 1],
           b: data[i + 2],
