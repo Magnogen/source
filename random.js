@@ -74,6 +74,8 @@ const Mulberry = (() => {
             const f = (index, map, coords) => {
                 if (index == coords.length)
                     return hash(...coords.map((e, i) => 0|e-(e<0) + ((map>>i)&1)));
+                if (0|coords[index] == coords[index])
+                    return f(index+1, map, coords);
                 return lerp(
                     f(index+1, map | (0<<index), coords),
                     f(index+1, map | (1<<index), coords),
