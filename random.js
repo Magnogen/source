@@ -1,5 +1,11 @@
 const rand = (a = 1, b = 0) => a + Math.random() * (b - a);
 const randpom = (a = 1, b = -a) => rand(a, b);
+const randbin = (mean=0, stdev=1) => { // modified from https://stackoverflow.com/a/36481059/7429566
+    const u = 1 - rand();
+    const v = rand();
+    const z = Math.sqrt( -2 * Math.log( u ) ) * Math.cos( 2 * Math.PI * v );
+    return z * stdev + mean;
+}
 const chance = (prob) => rand() < prob;
 const choose = (arr) => arr[0 | rand(arr.length)];
 const shuffle = (arr) => {
@@ -43,6 +49,12 @@ const Mulberry = (() => {
           return r;
         };
         const randpom = (a = 1, b = -a) => rand(a, b);
+        const randbin = (mean=0, stdev=1) => { // modified from https://stackoverflow.com/a/36481059/7429566
+            const u = 1 - rand();
+            const v = rand();
+            const z = Math.sqrt( -2 * Math.log( u ) ) * Math.cos( 2 * Math.PI * v );
+            return z * stdev + mean;
+        }
         const choose = (arr) => arr[0 | rand(arr.length)];
         const shuffle = (arr) => {
             let i = arr.length, j = 0 | rand(i);
@@ -87,7 +99,7 @@ const Mulberry = (() => {
 
         return {
             seed, // seed
-            rand, randpom, // floats
+            rand, randpom, randbin, // floats
             choose, shuffle, // arrays
             chance, // booleans
             hash, noise, // multiple dimensions
