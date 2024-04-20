@@ -70,7 +70,7 @@ const Debug = (object) => {
     summary.innerHTML = '[ ... ]';
     for (const value of object) {
       const item = document.createElement('li');
-      item.appendChild(debug(value));
+      item.appendChild(Debug(value));
       list.appendChild(item)
     }
   }
@@ -81,7 +81,7 @@ const Debug = (object) => {
       const item = document.createElement('li');
       item.appendChild(document.createTextNode(`${key}`));
       item.appendChild(document.createTextNode(':\u00A0'));
-      item.appendChild(debug(value));
+      item.appendChild(Debug(value));
       list.appendChild(item)
     }
   }
