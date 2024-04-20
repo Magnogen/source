@@ -90,6 +90,6 @@ const Debug = (object) => {
 };
 
 const Debugger = (element) => (object) => {
-  element.appendChild(debug(object));
+  element.appendChild(Debug(object));
   return object;
 };
