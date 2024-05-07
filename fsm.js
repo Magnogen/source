@@ -19,7 +19,7 @@ const FSM = (config) => {
   const call = (event, parameters) => {
     log(`"${event}" begin`);
     before[event]?.(...parameters);
-    const newState = (states[currentState]?.[event] ?? fallback[event] ?? (()=>{}))();
+    const newState = (states[currentState]?.[event] ?? fallback[event] ?? (()=>{}))(...parameters);
     after[event]?.(...parameters);
     log(`"${event}" completed`);
     if (newState != undefined) {
