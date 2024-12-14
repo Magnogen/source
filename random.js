@@ -26,6 +26,7 @@ const Mulberry = (() => {
         59, 61, 67, 71
     ];
     return (seed = 0 | rand(0xffffffff)) => {
+        let initialSeed = seed;
         let state = seed;
         // Seeded mulberry random adapted from bryc
         // https://stackoverflow.com/a/47593316/7429566
@@ -35,6 +36,9 @@ const Mulberry = (() => {
             t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
             return (t ^ (t >>> 14)) >>> 0;
         };
+
+        const getSeed = () => initialSeed;
+        const setSeed = (newSeed) => state = (initialSeed = newSeed);
 
         let terms = new Set();
         const rand = (a = 1, b = 0) => {
@@ -98,7 +102,7 @@ const Mulberry = (() => {
         })();
 
         return {
-            seed, // seed
+            getSeed, setSeed, // seeding
             rand, randpom, randbin, // floats
             choose, shuffle, // arrays
             chance, // booleans
