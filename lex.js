@@ -25,7 +25,7 @@ const Lexer = () => {
             let value = input.slice(index).match(matcher)[0];
 
             index += value.length;
-            if (ignore) break;
+            if (ignore) continue;
             const token = { type: name, value };
             mappers.forEach(fn => fn(token));
             tokens.push(token);
