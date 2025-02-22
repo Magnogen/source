@@ -87,6 +87,14 @@ const Parser = () => {
         return match ? { result: mapper(match.result), nextIndex: match.nextIndex } : null;
     });
 
+    const lazy = (fn) => {
+        let cache = null;
+        return parseWith((input, index) => {
+            if (!cache) cache = fn();
+            return cache.parse(input, index);
+        });
+    };
+
     return {
         token,
         repeat,
@@ -95,5 +103,6 @@ const Parser = () => {
         chain,
         any,
         map,
+        lazy,
     };
 };
