@@ -39,7 +39,16 @@ const Lexer = () => {
 
 
 const Parser = () => {
-  const parseWith = (fn) => ({ parse: (input, index) => fn(input, index) });
+  const parseWith = (fn) => ({
+    parse: fn,
+    map: (mapper) => parseWith((input, index) => {
+      const result = fn(input, index);
+      return result ? {
+        result: mapper(result.result),
+        nextIndex: result.nextIndex
+      } : null;
+    })
+  });
 
   const token = (type) => parseWith((input, index) =>
     index < input.length && input[index].type === type
