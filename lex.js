@@ -26,7 +26,7 @@ const Lexer = () => {
 
       index += value.length;
       if (ignore) continue;
-      const token = { type: name, value };
+      const token = { type: name, value, start: index, end: index + value.length };
       mappers.forEach(fn => fn(token));
       tokens.push(token);
     }
