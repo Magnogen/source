@@ -23,10 +23,11 @@ const Lexer = () => {
 
       const { name, matcher, ignore, mappers } = tokenDef;
       let value = input.slice(index).match(matcher)[0];
-
+      
+      const start = index;
       index += value.length;
       if (ignore) continue;
-      const token = { type: name, value, start: index, end: index + value.length };
+      const token = { type: name, value, start, end: index };
       mappers.forEach(fn => fn(token));
       tokens.push(token);
     }
