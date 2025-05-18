@@ -39,6 +39,7 @@ const Lexer = () => {
 
 
 const Parser = () => {
+  const SKIP = Symbol("skip");
   const parseWith = (fn) => ({
     parse: fn,
     map: (mapper) => parseWith((input, index) => {
@@ -47,9 +48,16 @@ const Parser = () => {
         result: mapper(result.result),
         nextIndex: result.nextIndex
       } : null;
+    }),
+    skip: () => parseWith((input, index) => {
+      const result = fn(input, index);
+      return result ? {
+        result: SKIP,
+        nextIndex: result.nextIndex
+      } : null;
     })
   });
-
+  
   const token = (type) => parseWith((input, index) =>
     index < input.length && input[index].type === type
       ? { result: input[index], nextIndex: index + 1 }
@@ -76,7 +84,7 @@ const Parser = () => {
     for (let combinator of combinators) {
       let match = combinator.parse(input, nextIndex);
       if (!match) return null;
-      results.push(match.result);
+      if (match.result != SKIP) results.push(match.result);
       nextIndex = match.nextIndex;
     }
 
