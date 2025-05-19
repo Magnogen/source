@@ -41,7 +41,7 @@ const Debug = (object) => {
         .toString()
         .split('\n')
         .map((line, i, lines) => {
-          const endingWhitespace = lines[lines.length-1].match(/^\s+/)[0];
+          const endingWhitespace = lines[lines.length-1].match(/^\s+/)?.[0] ?? '';
           if (line.startsWith(endingWhitespace)) return line.slice(endingWhitespace.length);
           return line;
         })
