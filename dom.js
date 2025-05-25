@@ -23,4 +23,4 @@ const El = (tag) => (...children) => {
     }
     return el;
 };
-const tags = new Proxy({}, { get: (, tag) => El(tag) });
+const tags = new Proxy({}, { get: (_, tag) => El(tag) });
