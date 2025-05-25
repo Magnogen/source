@@ -9,17 +9,15 @@ EventTarget.prototype.trigger = function (name, options={}) {
     return this.dispatchEvent(event)
 };
 
-const El = (tag) => (...children) => {
+const El = (tag, { class: cls, id, style, ...attrs } = {}) => (...children) => {
     const el = document.createElement(tag);
+    if (cls) el.className = cls;
+    if (id) el.id = id;
+    if (style) Object.assign(el.style, style);
+    for (const [key, val] of Object.entries(attrs)) e.setAttribute(key, val);
+
     for (const child of children) {
-        el.appendChild(
-            typeof child === "string" ?
-                document.createTextNode(child)
-            : child instanceof Node ?
-                child
-            :
-                null
-        );
+        el.append( typeof child === "string" ? document.createTextNode(child) : child);
     }
     return el;
 };
