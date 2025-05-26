@@ -14,7 +14,7 @@ const El = (tag, { class: cls, id, style, ...attrs } = {}) => (...children) => {
     if (cls) el.className = cls;
     if (id) el.id = id;
     if (style) Object.assign(el.style, style);
-    for (const [key, val] of Object.entries(attrs)) e.setAttribute(key, val);
+    for (const [key, val] of Object.entries(attrs)) el.setAttribute(key, val);
 
     for (const child of children) {
         el.append( typeof child === "string" ? document.createTextNode(child) : child);
