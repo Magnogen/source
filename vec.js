@@ -21,6 +21,7 @@ const vec2 = (() => {
         length, normalize,
         angle, turn,
         dot,
+        xy: { x, y },
     })
 })();
 
@@ -49,5 +50,6 @@ const vec3 = (() => {
         length,
         dot, cross,
         normalize,
+        xyz: { x, y, z },
     })
 })();
