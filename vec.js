@@ -14,13 +14,17 @@ const vec2 = (() => {
         const len = this.length();
         return vec2(this.x / len, this.y / len);
     }
+    function map(fn) { return vec2(fn(this.x, 'x'), fn(this.y, 'y')); }
     return (x, y) => ({
         x, y,
+        0: x, 1: y,
+        *[Symbol.iterator]() { yield* [x, y]; },
         add, sub,
         mul, div,
         length, normalize,
         angle, turn,
         dot,
+        map,
         xy: { x, y },
     })
 })();
@@ -43,6 +47,7 @@ const vec3 = (() => {
         const len = this.length();
         return vec3(this.x / len, this.y / len, this.z / len);
     }
+    function map(fn) { return vec2(fn(this.x, 'x'), fn(this.y, 'y')); }
     return (x, y, z) => ({
         x, y, z,
         add, sub,
@@ -50,6 +55,7 @@ const vec3 = (() => {
         length,
         dot, cross,
         normalize,
+        map,
         xyz: { x, y, z },
     })
 })();
