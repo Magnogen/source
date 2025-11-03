@@ -85,20 +85,34 @@ const Mulberry = (() => {
             return hash_int(value) / 0x100000000;
         };
         const noise = (() => {
-            const lerp = (a, b, t) => a*(1-t) + b*t;
-            const smooth = (x) => x*x*(3-2*x);
-            const f = (index, map, coords) => {
-                if (index == coords.length)
-                    return hash(...coords.map((e, i) => 0|e-(e<0) + ((map>>i)&1)));
-                if ((0|coords[index]) == coords[index])
-                    return f(index+1, map, coords);
-                return lerp(
-                    f(index+1, map | (0<<index), coords),
-                    f(index+1, map | (1<<index), coords),
-                    smooth(coords[index] - (0|coords[index] - (coords[index]<0)))
-                );
+            const smoothStep = x => x * x * (3 - 2 * x);
+            return (...coords) => {
+                const dimensions = coords.length;
+                const baseCoords = new Array(dimensions);
+                const interpolationFactors = new Array(dimensions);
+                for (let i = 0; i < dimensions; i++) {
+                    const integerCoord = Math.floor(coords[i]);
+                    baseCoords[i] = integerCoord;
+                    interpolationFactors[i] = smoothStep(coords[i] - integerCoord);
+                }
+                let result = 0;
+                const cornerCount = 1 << dimensions;
+                for (let cornerMask = 0; cornerMask < cornerCount; cornerMask++) {
+                    let weight = 1;
+                    const cornerCoords = new Array(dimensions);
+                    for (let dim = 0; dim < dimensions; dim++) {
+                        if (cornerMask & (1 << dim)) {
+                            cornerCoords[dim] = baseCoords[dim] + 1;
+                            weight *= interpolationFactors[dim];
+                        } else {
+                            cornerCoords[dim] = baseCoords[dim];
+                            weight *= 1 - interpolationFactors[dim];
+                        }
+                    }
+                    result += hash(...cornerCoords) * weight;
+                }
+                return result;
             };
-            return (...coords) => f(0, 0, coords);
         })();
 
         return {
