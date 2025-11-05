@@ -9,10 +9,10 @@ const randbin = (mean=0, stdev=1) => { // modified from https://stackoverflow.co
 const chance = (prob) => rand() < prob;
 const choose = (arr) => arr[0 | rand(arr.length)];
 const shuffle = (arr) => {
-    let i = arr.length, j = 0 | rand(i);
+    let i = arr.length;
     while (i-- > 0) {
+        const j = 0 | rand(i);
         [arr[i], arr[j]] = [arr[j], arr[i]];
-        j = 0 | rand(i);
     }
     return arr;
 };
@@ -41,17 +41,7 @@ const Mulberry = (() => {
         const setSeed = (newSeed) => state = (initialSeed = newSeed);
 
         let terms = new Set();
-        const rand = (a = 1, b = 0) => {
-          const r = a + (state = hash_int(state)) / 0x100000000 * (b - a);
-          if (terms.has(r)) {
-            state <<= 1;
-            state += 2*(state%2)-1;
-            terms.clear();
-            return rand(a, b);
-          }
-          terms.add(r);
-          return r;
-        };
+        const rand = (a = 1, b = 0) => a + (state = hash_int(state)) / 0x100000000 * (b - a);
         const randpom = (a = 1, b = -a) => rand(a, b);
         const randbin = (mean=0, stdev=1) => { // modified from https://stackoverflow.com/a/36481059/7429566
             const u = 1 - rand();
@@ -61,10 +51,10 @@ const Mulberry = (() => {
         }
         const choose = (arr) => arr[0 | rand(arr.length)];
         const shuffle = (arr) => {
-            let i = arr.length, j = 0 | rand(i);
+            let i = arr.length;
             while (i-- > 0) {
+                const j = 0 | rand(i);
                 [arr[i], arr[j]] = [arr[j], arr[i]];
-                j = 0 | rand(i);
             }
             return arr;
         };
