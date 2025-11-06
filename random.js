@@ -15,7 +15,7 @@ const choose = (arr) => arr[0 | rand(arr.length)];
 const shuffle = (arr) => {
     let i = arr.length;
     while (i-- > 0) {
-        const j = 0 | rand(i + 1);
+    	const j = 0 | rand(i + 1);
         [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     return arr;
@@ -60,7 +60,7 @@ const Mulberry = (() => {
         const shuffle = (arr) => {
             let i = arr.length;
             while (i-- > 0) {
-                const j = 0 | rand(i + 1);
+            	const j = 0 | rand(i + 1);
                 [arr[i], arr[j]] = [arr[j], arr[i]];
             }
             return arr;
@@ -81,7 +81,7 @@ const Mulberry = (() => {
             for (let v in values) value ^= dimension_primes[v] * (0 | values[v] - (values[v]<0));
             return hash_int(value) / 0x100000000;
         };
-        const noise = (() => {
+        const valueNoise = (() => {
             const smoothStep = x => x * x * (3 - 2 * x);
             return (...coords) => {
                 const dimensions = coords.length;
@@ -111,13 +111,105 @@ const Mulberry = (() => {
                 return result;
             };
         })();
+        const worleyNoise = (...coords) => {
+            const n = coords.length;
+            const base = coords.map(Math.floor);
+            let minDistSq = Infinity;
 
+            const recurse = (dim, cell) => {
+                if (dim == n) {
+                  const feature = new Array(n);
+                  for (let i = 0; i < n; i++)
+                      feature[i] = cell[i] + hash(i, ...cell) * 1;
+
+                  const distSq = feature.reduce((s, v, i) => s + (coords[i] - v) ** 2, 0);
+                  if (distSq < minDistSq) minDistSq = distSq;
+                  return;
+                }
+                for (let offset = -1; offset <= 1; offset++) {
+                    cell[dim] = base[dim] + offset;
+                    recurse(dim + 1, cell);
+                }
+            };
+
+            recurse(0, new Array(n));
+            return Math.sqrt(minDistSq);
+        };
+        const voronoiNoise = (...coords) => {
+            const n = coords.length;
+            const base = coords.map(Math.floor);
+            let minDistSq = Infinity;
+            let closestFeature = null;
+
+            const recurse = (dim, cell) => {
+                if (dim == n) {
+                  const feature = new Array(n);
+                  for (let i = 0; i < n; i++)
+                      feature[i] = cell[i] + hash(i, ...cell) * 1;
+
+                  const distSq = feature.reduce((s, v, i) => s + (coords[i] - v) ** 2, 0);
+                  if (distSq < minDistSq) {
+                      minDistSq = distSq;
+                      closestFeature = feature;
+                  }
+                  return;
+                }
+                for (let offset = -1; offset <= 1; offset++) {
+                    cell[dim] = base[dim] + offset;
+                    recurse(dim + 1, cell);
+                }
+            };
+
+            recurse(0, new Array(n));
+            return hash(...closestFeature);
+        };
+
+        const perlinNoise = (...coords) => {
+            const n = coords.length;
+            const base = coords.map(Math.floor);
+            const frac = coords.map((x, i) => x - base[i]);
+            const interp = frac.map(f => f * f * (3 - 2 * f));
+
+            const grad = (...corner) => {
+                const r = hash(...corner);
+                const vec = new Array(n);
+                let sum = 0;
+                for (let i = 0; i < n; i++) {
+                    vec[i] = ((r * (i + 1) * 43758.5453) % 2) - 1;
+                    sum += vec[i] * vec[i];
+                }
+                const invLen = 1 / Math.sqrt(sum);
+                for (let i = 0; i < n; i++) vec[i] *= invLen;
+                return vec;
+            };
+
+            const corners = 1 << n;
+            let result = 0;
+
+            for (let mask = 0; mask < corners; mask++) {
+                const corner = new Array(n);
+                const offset = new Array(n);
+                let weight = 1;
+                for (let i = 0; i < n; i++) {
+                    const bit = (mask >> i) & 1;
+                    corner[i] = base[i] + bit;
+                    offset[i] = frac[i] - bit;
+                    weight *= bit ? interp[i] : 1 - interp[i];
+                }
+                const g = grad(...corner);
+                const dot = offset.reduce((s, v, i) => s + g[i] * v, 0);
+                result += dot * weight;
+            }
+            return 0.5 + 0.5 * result;
+        };
+        
         return {
             getSeed, setSeed, // seeding
             rand, randpom, randbin, // floats
             choose, shuffle, // arrays
             chance, // booleans
-            hash, noise, // multiple dimensions
+            hash, // infinite dimensional hash
+            valueNoise, worleyNoise, voronoiNoise, perlinNoise, // infinite dimensional noises
         };
     };
 })();
