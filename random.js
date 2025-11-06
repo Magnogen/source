@@ -1,4 +1,4 @@
-const rand = (a = 1, b = 0) => a + Math.random() * (b - a);
+const rand = (a = 1, b = 0) => b < a ? rand(b, a) : a + Math.random() * (b - a);
 const randpom = (a = 1, b = -a) => rand(a, b);
 const randbin = (mean=0, stdev=1) => { // modified from https://stackoverflow.com/a/36481059/7429566
     const u = 1 - rand();
@@ -41,7 +41,7 @@ const Mulberry = (() => {
         const setSeed = (newSeed) => state = (initialSeed = newSeed);
 
         let terms = new Set();
-        const rand = (a = 1, b = 0) => a + (state = hash_int(state)) / 0x100000000 * (b - a);
+        const rand = (a = 1, b = 0) => b < a ? rand(b, a) : a + (state = hash_int(state)) / 0x100000000 * (b - a);
         const randpom = (a = 1, b = -a) => rand(a, b);
         const randbin = (mean=0, stdev=1) => { // modified from https://stackoverflow.com/a/36481059/7429566
             const u = 1 - rand();
