@@ -67,18 +67,14 @@ const Mulberry = (() => {
         };
         const chance = (prob) => rand() < prob;
 
-        const dimension_primes = ((size) => {
-            let result = [], primes = shuffle(twenty_primes.slice(0));
-            while (primes.length > 0) {
-                const [a, b] = [primes.pop(), primes.pop()];
-                let coprime = 1;
-                do coprime *= chance(0.5) ? a : b; while (coprime < size);
-                result.push(coprime);
-            } return result;
-        })(10 ** 6); // in the 1-99 million range
         const hash = (...values) => {
             let value = seed;
-            for (let v in values) value ^= dimension_primes[v] * (0 | values[v] - (values[v]<0));
+            for (let i = 0; i < values.length; i++) {
+                // "Golden ratio" bit scrambling — 0x9e3779b9 ≈ φ * 2^32
+                const primeLike = hash_int(i * 0x9e3779b9) | 1;
+                const coord = 0 | values[i] - (values[i] < 0);
+                value ^= Math.imul(primeLike, coord);
+            }
             return hash_int(value) / 0x100000000;
         };
         const valueNoise = (() => {
@@ -213,3 +209,4 @@ const Mulberry = (() => {
         };
     };
 })();
+
