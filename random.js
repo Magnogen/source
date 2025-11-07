@@ -22,13 +22,6 @@ const shuffle = (arr) => {
 };
 
 const Mulberry = (() => {
-    const twenty_primes = [
-        2, 3, 5, 7,
-        11, 13, 17, 19,
-        23, 29, 31, 37,
-        41, 43, 47, 53,
-        59, 61, 67, 71
-    ];
     return (seed = 0 | rand(0xffffffff)) => {
         let initialSeed = seed;
         let state = seed;
@@ -209,4 +202,5 @@ const Mulberry = (() => {
         };
     };
 })();
+
 
