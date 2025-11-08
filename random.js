@@ -70,86 +70,139 @@ const Mulberry = (() => {
             }
             return hash_int(value) / 0x100000000;
         };
-        const valueNoise = (() => {
+        
+        const valueNoise = (...coords) => {
             const smoothStep = x => x * x * (3 - 2 * x);
-            return (...coords) => {
-                const dimensions = coords.length;
-                const baseCoords = new Array(dimensions);
-                const interpolationFactors = new Array(dimensions);
-                for (let i = 0; i < dimensions; i++) {
-                    const integerCoord = Math.floor(coords[i]);
-                    baseCoords[i] = integerCoord;
-                    interpolationFactors[i] = smoothStep(coords[i] - integerCoord);
-                }
-                let result = 0;
-                const cornerCount = 1 << dimensions;
-                for (let cornerMask = 0; cornerMask < cornerCount; cornerMask++) {
-                    let weight = 1;
-                    const cornerCoords = new Array(dimensions);
-                    for (let dim = 0; dim < dimensions; dim++) {
-                        if (cornerMask & (1 << dim)) {
-                            cornerCoords[dim] = baseCoords[dim] + 1;
-                            weight *= interpolationFactors[dim];
-                        } else {
-                            cornerCoords[dim] = baseCoords[dim];
-                            weight *= 1 - interpolationFactors[dim];
-                        }
+            const dimensions = coords.length;
+            const baseCoords = new Array(dimensions);
+            const interpolationFactors = new Array(dimensions);
+            for (let i = 0; i < dimensions; i++) {
+                const integerCoord = Math.floor(coords[i]);
+                baseCoords[i] = integerCoord;
+                interpolationFactors[i] = smoothStep(coords[i] - integerCoord);
+            }
+            let result = 0;
+            const cornerCount = 1 << dimensions;
+            for (let cornerMask = 0; cornerMask < cornerCount; cornerMask++) {
+                let weight = 1;
+                const cornerCoords = new Array(dimensions);
+                for (let dim = 0; dim < dimensions; dim++) {
+                    if (cornerMask & (1 << dim)) {
+                        cornerCoords[dim] = baseCoords[dim] + 1;
+                        weight *= interpolationFactors[dim];
+                    } else {
+                        cornerCoords[dim] = baseCoords[dim];
+                        weight *= 1 - interpolationFactors[dim];
                     }
-                    result += hash(...cornerCoords) * weight;
                 }
-                return result;
-            };
-        })();
+                result += hash(...cornerCoords) * weight;
+            }
+            return result;
+        };
+        
         const worleyNoise = (...coords) => {
             const n = coords.length;
             const base = coords.map(Math.floor);
             let minDistSq = Infinity;
 
-            const recurse = (dim, cell) => {
-                if (dim == n) {
-                  const feature = new Array(n);
-                  for (let i = 0; i < n; i++)
-                      feature[i] = cell[i] + hash(i, ...cell) * 1;
-
-                  const distSq = feature.reduce((s, v, i) => s + (coords[i] - v) ** 2, 0);
-                  if (distSq < minDistSq) minDistSq = distSq;
-                  return;
-                }
-                for (let offset = -1; offset <= 1; offset++) {
+            const totalCells = 3 ** n;
+            for (let index = 0; index < totalCells; index++) {
+                let tmp = index;
+                const cell = new Array(n);
+                for (let dim = 0; dim < n; dim++) {
+                    const offset = (tmp % 3) - 1;
+                    tmp = Math.floor(tmp / 3);
                     cell[dim] = base[dim] + offset;
-                    recurse(dim + 1, cell);
                 }
-            };
 
-            recurse(0, new Array(n));
+                const feature = new Array(n);
+                for (let i = 0; i < n; i++)
+                    feature[i] = cell[i] + hash(i, ...cell);
+
+                let distSq = 0;
+                for (let i = 0; i < n; i++) {
+                    const d = coords[i] - feature[i];
+                    distSq += d * d;
+                }
+
+                if (distSq < minDistSq)
+                    minDistSq = distSq;
+            }
+
             return Math.sqrt(minDistSq);
         };
+        
+        const worley2Noise = (...coords) => {
+            const n = coords.length;
+            const base = coords.map(Math.floor);
+
+            let min1 = Infinity;
+            let min2 = Infinity;
+
+            const totalCells = 3 ** n;
+            for (let index = 0; index < totalCells; index++) {
+                let tmp = index;
+                const cell = new Array(n);
+                for (let dim = 0; dim < n; dim++) {
+                    const offset = (tmp % 3) - 1;  // -1, 0, 1
+                    tmp = Math.floor(tmp / 3);
+                    cell[dim] = base[dim] + offset;
+                }
+
+                const feature = new Array(n);
+                for (let i = 0; i < n; i++)
+                    feature[i] = cell[i] + hash(i, ...cell);
+
+                let distSq = 0;
+                for (let i = 0; i < n; i++) {
+                    const d = coords[i] - feature[i];
+                    distSq += d * d;
+                }
+
+                if (distSq < min1) {
+                    min2 = min1;
+                    min1 = distSq;
+                } else if (distSq < min2) {
+                    min2 = distSq;
+                }
+            }
+            
+            return Math.sqrt(min2);
+        };
+
+        
         const voronoiNoise = (...coords) => {
             const n = coords.length;
             const base = coords.map(Math.floor);
             let minDistSq = Infinity;
             let closestFeature = null;
 
-            const recurse = (dim, cell) => {
-                if (dim == n) {
-                  const feature = new Array(n);
-                  for (let i = 0; i < n; i++)
-                      feature[i] = cell[i] + hash(i, ...cell) * 1;
-
-                  const distSq = feature.reduce((s, v, i) => s + (coords[i] - v) ** 2, 0);
-                  if (distSq < minDistSq) {
-                      minDistSq = distSq;
-                      closestFeature = feature;
-                  }
-                  return;
-                }
-                for (let offset = -1; offset <= 1; offset++) {
+            const totalCells = 3 ** n;
+            for (let index = 0; index < totalCells; index++) {
+                let tmp = index;
+                const cell = new Array(n);
+                for (let dim = 0; dim < n; dim++) {
+                    const offset = (tmp % 3) - 1;
+                    tmp = Math.floor(tmp / 3);
                     cell[dim] = base[dim] + offset;
-                    recurse(dim + 1, cell);
                 }
-            };
 
-            recurse(0, new Array(n));
+                const feature = new Array(n);
+                for (let i = 0; i < n; i++)
+                    feature[i] = cell[i] + hash(i, ...cell);
+
+                let distSq = 0;
+                for (let i = 0; i < n; i++) {
+                    const d = coords[i] - feature[i];
+                    distSq += d * d;
+                }
+
+                if (distSq < minDistSq) {
+                    minDistSq = distSq;
+                    closestFeature = feature;
+                }
+            }
+
             return hash(...closestFeature);
         };
 
@@ -198,7 +251,7 @@ const Mulberry = (() => {
             choose, shuffle, // arrays
             chance, // booleans
             hash, // infinite dimensional hash
-            valueNoise, worleyNoise, voronoiNoise, perlinNoise, // infinite dimensional noises
+            valueNoise, worleyNoise, worley2Noise, voronoiNoise, perlinNoise, // infinite dimensional noises
         };
     };
 })();
