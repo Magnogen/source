@@ -7,10 +7,7 @@ const Lexer = () => {
       : matcher;
 
   const define = (name, matcher, { ignore = false } = {}) => {
-    const tokenDef = { name, matcher: sanitizeMatcher(matcher), ignore, mappers: [] };
-    collection.push(tokenDef);
-
-    return { map: (fn) => tokenDef.mappers.push(fn) };
+    collection.push({ name, matcher: sanitizeMatcher(matcher), ignore });
   };
 
   const tokenize = (input) => {
@@ -21,15 +18,13 @@ const Lexer = () => {
       const tokenDef = collection.find(({ matcher }) => input.slice(index).match(matcher)?.index === 0);
       if (!tokenDef) throw new Error(`Unexpected token at index ${index}: '${input[index]}'`);
 
-      const { name, matcher, ignore, mappers } = tokenDef;
+      const { name, matcher, ignore } = tokenDef;
       let value = input.slice(index).match(matcher)[0];
       
       const start = index;
       index += value.length;
       if (ignore) continue;
-      const token = { type: name, value, start, end: index };
-      mappers.forEach(fn => fn(token));
-      tokens.push(token);
+      tokens.push({ type: name, value, start, end: index });
     }
 
     return tokens;
