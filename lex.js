@@ -33,22 +33,13 @@ const Lexer = () => {
   return { define, tokenize };
 };
 
-
 const Parser = () => {
-  const SKIP = Symbol("skip");
   const parseWith = (fn) => ({
     parse: fn,
     map: (mapper) => parseWith((input, index) => {
       const result = fn(input, index);
       return result ? {
         result: mapper(result.result),
-        nextIndex: result.nextIndex
-      } : null;
-    }),
-    skip: () => parseWith((input, index) => {
-      const result = fn(input, index);
-      return result ? {
-        result: SKIP,
         nextIndex: result.nextIndex
       } : null;
     })
@@ -95,11 +86,6 @@ const Parser = () => {
     return null;
   });
 
-  const map = (combinator, mapper) => parseWith((input, index) => {
-    let match = combinator.parse(input, index);
-    return match ? { result: mapper(match.result), nextIndex: match.nextIndex } : null;
-  });
-
   const lazy = (fn) => parseWith((input, index) => fn().parse(input, index));
 
   return {
@@ -109,7 +95,6 @@ const Parser = () => {
     maybe: (combinator) => repeat(combinator, 0, 1),
     chain,
     any,
-    map,
     lazy,
   };
 };
