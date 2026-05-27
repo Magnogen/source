@@ -71,7 +71,7 @@ const Parser = () => {
     for (let combinator of combinators) {
       let match = combinator.parse(input, nextIndex);
       if (!match) return null;
-      if (match.result != SKIP) results.push(match.result);
+      results.push(match.result);
       nextIndex = match.nextIndex;
     }
 
