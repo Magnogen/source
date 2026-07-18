@@ -3,7 +3,7 @@ const Mulberry = (seed = 0 | Math.random() * 0xffffffff) => {
 
   // Seeded mulberry random adapted from bryc
   // https://stackoverflow.com/a/47593316/7429566
-  const mulberryHashInt = (value) => {
+  const hashInt = (value) => {
     let t = value + 0x6d2b79f5;
     t = Math.imul(t ^ (t >>> 15), t | 1);
     t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
@@ -14,11 +14,44 @@ const Mulberry = (seed = 0 | Math.random() * 0xffffffff) => {
     let value = initialSeed;
     for (let i = 0; i < values.length; i++) {
       // "Golden ratio" bit scrambling - 0x9e3779b9 ~= phi * 2^32
-      const primeLike = mulberryHashInt(i * 0x9e3779b9) | 1;
+      const primeLike = hashInt(i * 0x9e3779b9) | 1;
       const coord = 0 | values[i] - (values[i] < 0);
       value ^= Math.imul(primeLike, coord);
     }
-    return mulberryHashInt(value) / 0x100000000;
+    return hashInt(value) / 0x100000000;
+  };
+
+  hash.getSeed = () => initialSeed;
+  hash.setSeed = (newSeed) => initialSeed = newSeed;
+
+  return hash;
+};
+
+const sfc32 = (seed = 0 | Math.random() * 0xffffffff) => {
+  let initialSeed = seed;
+
+  // Seeded sfc32 random adapted from bryc
+  // https://stackoverflow.com/a/47593316/7429566
+  const hashInt = (value) => {
+    a |= 0; b |= 0; c |= 0; d |= 0;
+    let t = (a + b | 0) + d | 0;
+    d = d + 1 | 0;
+    a = b ^ b >>> 9;
+    b = c + (c << 3) | 0;
+    c = (c << 21 | c >>> 11);
+    c = c + t | 0;
+    return t >>> 0;
+  };
+
+  const hash = (...values) => {
+    let value = initialSeed;
+    for (let i = 0; i < values.length; i++) {
+      // "Golden ratio" bit scrambling - 0x9e3779b9 ~= phi * 2^32
+      const primeLike = hashInt(i * 0x9e3779b9) | 1;
+      const coord = 0 | values[i] - (values[i] < 0);
+      value ^= Math.imul(primeLike, coord);
+    }
+    return hashInt(value) / 0x100000000;
   };
 
   hash.getSeed = () => initialSeed;
