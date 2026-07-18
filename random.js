@@ -1,45 +1,39 @@
-const rand = (a = 1, b = 0) => (
-  b < a ?
-    b + Math.random() * (a - b)
-    : a + Math.random() * (b - a)
-);
-const randpom = (a = 1, b = -a) => rand(a, b);
-const randbin = (mean = 0, stdev = 1) => { // modified from https://stackoverflow.com/a/36481059/7429566
-  const u = 1 - rand();
-  const v = rand();
-  const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
-  return z * stdev + mean;
-}
-const chance = (prob) => rand() < prob;
-const choose = (arr) => arr[0 | rand(arr.length)];
-const shuffle = (arr) => {
-  let i = arr.length;
-  while (i-- > 0) {
-    const j = 0 | rand(i + 1);
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-};
-
-const Mulberry = (seed = 0 | rand(0xffffffff)) => {
+const Mulberry = (seed = 0 | Math.random() * 0xffffffff) => {
   let initialSeed = seed;
-  let state = seed;
+
   // Seeded mulberry random adapted from bryc
   // https://stackoverflow.com/a/47593316/7429566
-  const hash_int = (value) => {
+  const mulberryHashInt = (value) => {
     let t = value + 0x6d2b79f5;
     t = Math.imul(t ^ (t >>> 15), t | 1);
     t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
     return (t ^ (t >>> 14)) >>> 0;
   };
 
-  const getSeed = () => initialSeed;
-  const setSeed = (newSeed) => state = (initialSeed = newSeed);
+  const hash = (...values) => {
+    let value = initialSeed;
+    for (let i = 0; i < values.length; i++) {
+      // "Golden ratio" bit scrambling - 0x9e3779b9 ~= phi * 2^32
+      const primeLike = mulberryHashInt(i * 0x9e3779b9) | 1;
+      const coord = 0 | values[i] - (values[i] < 0);
+      value ^= Math.imul(primeLike, coord);
+    }
+    return mulberryHashInt(value) / 0x100000000;
+  };
+
+  hash.getSeed = () => initialSeed;
+  hash.setSeed = (newSeed) => initialSeed = newSeed;
+
+  return hash;
+};
+
+const Rng = (hash = Mulberry()) => {
+  let state = hash.getSeed();
 
   const rand = (a = 1, b = 0) => (
     b < a ?
-      b + (state = hash_int(state)) / 0x100000000 * (a - b)
-      : a + (state = hash_int(state)) / 0x100000000 * (b - a)
+      b + (state = hash(state)) * (a - b)
+      : a + (state = hash(state)) * (b - a)
   );
   const randpom = (a = 1, b = -a) => rand(a, b);
   const randbin = (mean = 0, stdev = 1) => { // modified from https://stackoverflow.com/a/36481059/7429566
@@ -59,18 +53,12 @@ const Mulberry = (seed = 0 | rand(0xffffffff)) => {
   };
   const chance = (prob) => rand() < prob;
 
-  const hash = (...values) => {
-    let value = seed;
-    for (let i = 0; i < values.length; i++) {
-      // "Golden ratio" bit scrambling - 0x9e3779b9 ~= phi * 2^32
-      const primeLike = hash_int(i * 0x9e3779b9) | 1;
-      const coord = 0 | values[i] - (values[i] < 0);
-      value ^= Math.imul(primeLike, coord);
-    }
-    return hash_int(value) / 0x100000000;
-  };
+  return { rand, randpom, randbin, chance, choose, shuffle };
+};
 
-  const valueNoise = (...coords) => {
+const Noise = (hash = Mulberry()) => {
+
+  const value = (...coords) => {
     const smoothStep = x => x * x * (3 - 2 * x);
     const dimensions = coords.length;
     const baseCoords = new Array(dimensions);
@@ -99,7 +87,7 @@ const Mulberry = (seed = 0 | rand(0xffffffff)) => {
     return result;
   };
 
-  const worleyNoise = (...coords) => {
+  const worley = (...coords) => {
     const n = coords.length;
     const base = coords.map(Math.floor);
     let minDistSq = Infinity;
@@ -131,7 +119,7 @@ const Mulberry = (seed = 0 | rand(0xffffffff)) => {
     return Math.sqrt(minDistSq);
   };
 
-  const worley2Noise = (...coords) => {
+  const worley2 = (...coords) => {
     const n = coords.length;
     const base = coords.map(Math.floor);
 
@@ -170,7 +158,7 @@ const Mulberry = (seed = 0 | rand(0xffffffff)) => {
   };
 
 
-  const voronoiNoise = (...coords) => {
+  const voronoi = (...coords) => {
     const n = coords.length;
     const base = coords.map(Math.floor);
     let minDistSq = Infinity;
@@ -205,7 +193,7 @@ const Mulberry = (seed = 0 | rand(0xffffffff)) => {
     return hash(...closestFeature);
   };
 
-  const perlinNoise = (...coords) => {
+  const perlin = (...coords) => {
     const n = coords.length;
     const base = coords.map(Math.floor);
     const frac = coords.map((x, i) => x - base[i]);
@@ -244,12 +232,5 @@ const Mulberry = (seed = 0 | rand(0xffffffff)) => {
     return 0.5 + 0.5 * result;
   };
 
-  return {
-    getSeed, setSeed, // seeding
-    rand, randpom, randbin, // floats
-    choose, shuffle, // arrays
-    chance, // booleans
-    hash, // infinite dimensional hash
-    valueNoise, worleyNoise, worley2Noise, voronoiNoise, perlinNoise, // infinite dimensional noises
-  };
+  return { value, worley, worley2, voronoi, perlin };
 };
