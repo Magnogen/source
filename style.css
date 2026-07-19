@@ -42,8 +42,15 @@ h3 {
   margin: 0 0 0.5rem;
 }
 
-article {
+section {
   margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(31rem, 1fr));
+  gap: 1rem;
+}
+
+article {
+  margin: 0;
   padding: 1rem;
   border: 1px solid var(--line);
   border-radius: 1rem;
