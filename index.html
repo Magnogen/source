@@ -35,7 +35,7 @@
           &nbsp;&nbsp;ease: Ease.Linear<br>
           });
         </code>
-        <a href="lib/anim.js">Open in Browser</a><br>
+        <a href="anim.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/anim.js">View on GitHub</a>
       </article>
       <article class="binary">
@@ -49,7 +49,7 @@
           <span class="key">const</span> <span class="var">reader</span> = BinaryReader(<span class="var">writer</span>.toBuffer());<br>
           <span class="var">reader</span>.uint16(); <span class="com">// 513</span>
         </code>
-        <a href="lib/binary.js">Open in Browser</a><br>
+        <a href="binary.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/binary.js">View on GitHub</a>
       </article>
       <article class="cam">
@@ -63,7 +63,7 @@
           <span class="var">cam</span>.scale = <span class="num">2</span>;<br>
           <span class="key">const</span> <span class="var">screen</span> = <span class="var">cam</span>.at({ x: <span class="num">120</span>, y: <span class="num">60</span> });
         </code>
-        <a href="lib/cam.js">Open in Browser</a><br>
+        <a href="cam.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/cam.js">View on GitHub</a>
       </article>
       <article class="colour">
@@ -75,7 +75,7 @@
           <span class="key">let</span> <span class="var">col</span> = Colour(<span class="str">'rgb'</span>, <span class="num">255</span>, <span class="num">0</span>, <span class="num">0</span>);<br>
           <span class="var">col</span>.toHex(); <span class="com">// "#ff0000ff"</span>
         </code>
-        <a href="lib/colour.js">Open in Browser</a><br>
+        <a href="colour.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/colour.js">View on GitHub</a>
       </article>
       <article class="debug">
@@ -87,7 +87,7 @@
           <span class="key">const</span> <span class="var">debug</span> = Debugger(document.body);<br>
           <span class="var">debug</span>({ score: <span class="num">42</span>, alive: <span class="bol">true</span> });
         </code>
-        <a href="lib/debug.js">Open in Browser</a><br>
+        <a href="debug.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/debug.js">View on GitHub</a>
       </article>
       <article class="dom">
@@ -100,7 +100,7 @@
           &nbsp;&nbsp;console.log(<span class="str">'Element clicked!'</span>);<br>
           });
         </code>
-        <a href="lib/dom.js">Open in Browser</a><br>
+        <a href="dom.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/dom.js">View on GitHub</a>
       </article>
       <article class="fps">
@@ -113,7 +113,7 @@
           <span class="var">fps</span>.submit(<span class="var">deltaTime</span>);<br>
           <span class="var">fps</span>.average; <span class="com">// current average FPS</span>
         </code>
-        <a href="lib/fps.js">Open in Browser</a><br>
+        <a href="fps.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/fps.js">View on GitHub</a>
       </article>
       <article class="fsm">
@@ -128,7 +128,7 @@
           });<br>
           <span class="var">machine</span>.call(<span class="str">'start'</span>);
         </code>
-        <a href="lib/fsm.js">Open in Browser</a><br>
+        <a href="fsm.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/fsm.js">View on GitHub</a>
       </article>
       <article class="img">
@@ -143,7 +143,7 @@
           }<br>
           <span class="var">img</span>.drawTo(<span class="var">canvas</span>);
         </code>
-        <a href="lib/img.js">Open in Browser</a><br>
+        <a href="img.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/img.js">View on GitHub</a>
       </article>
       <article class="iter">
@@ -158,7 +158,7 @@
           &nbsp;&nbsp;console.log(<span class="var">point</span>);<br>
           }
         </code>
-        <a href="lib/iter.js">Open in Browser</a><br>
+        <a href="iter.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/iter.js">View on GitHub</a>
       </article>
       <article class="lex">
@@ -172,7 +172,7 @@
           <span class="var">lexer</span>.define(<span class="str">'space'</span>, /\s+/, { ignore: <span class="bol">true</span> });<br>
           <span class="key">const</span> <span class="var">tokens</span> = <span class="var">lexer</span>.tokenize(<span class="str">'hello world'</span>);
         </code>
-        <a href="lib/lex.js">Open in Browser</a><br>
+        <a href="lex.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/lex.js">View on GitHub</a>
       </article>
       <article class="limit">
@@ -187,7 +187,7 @@
           <span class="var">limiter</span>.fold(<span class="num">11</span>); <span class="com">// 9</span><br>
           <span class="var">limiter</span>.sigmoid(<span class="num">15</span>); <span class="com">// 9.168...</span>
         </code>
-        <a href="lib/limit.js">Open in Browser</a><br>
+        <a href="limit.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/limit.js">View on GitHub</a>
       </article>
       <article class="meal">
@@ -200,7 +200,7 @@
           <span class="var">food</span>.eat(<span class="str">'Hello'</span>); <span class="com">// "Hello"</span><br>
           <span class="var">food</span>.first(<span class="num">2</span>); <span class="com">// ", "</span>
         </code>
-        <a href="lib/meal.js">Open in Browser</a><br>
+        <a href="meal.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/meal.js">View on GitHub</a>
       </article>
       <article class="pen">
@@ -214,7 +214,7 @@
           <span class="var">pen</span>.goto(<span class="num">50</span>, <span class="num">50</span>);<br>
           <span class="var">pen</span>.up();
         </code>
-        <a href="lib/pen.js">Open in Browser</a><br>
+        <a href="pen.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/pen.js">View on GitHub</a>
       </article>
       <article class="piper">
@@ -229,7 +229,7 @@
           &nbsp;&nbsp;.sqrt()<br>
           &nbsp;&nbsp;.value;
         </code>
-        <a href="lib/piper.js">Open in Browser</a><br>
+        <a href="piper.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/piper.js">View on GitHub</a>
       </article>
       <article class="pretty">
@@ -243,7 +243,7 @@
           <span class="var">out</span>.indent();<br>
           <span class="var">out</span>.println(<span class="str">'Indented'</span>);
         </code>
-        <a href="lib/pretty.js">Open in Browser</a><br>
+        <a href="pretty.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/pretty.js">View on GitHub</a>
       </article>
       <article class="random">
@@ -256,7 +256,7 @@
           <span class="key">let</span> <span class="var">arr</span> = [<span class="str">'a'</span>, <span class="str">'b'</span>, <span class="str">'c'</span>];<br>
           <span class="key">let</span> <span class="var">choice</span> = choose(<span class="var">arr</span>);
         </code>
-        <a href="lib/random.js">Open in Browser</a><br>
+        <a href="random.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/random.js">View on GitHub</a>
       </article>
       <article class="scene">
@@ -281,7 +281,7 @@
           &nbsp;&nbsp;fps: <span class="num">30</span>,<br>
           }).render();
         </code>
-        <a href="lib/scene.js">Open in Browser</a><br>
+        <a href="scene.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/scene.js">View on GitHub</a>
       </article>
       <article class="segment">
@@ -295,7 +295,7 @@
           &nbsp;&nbsp;<span class="num">200</span>, <span class="num">120</span>, <span class="num">30</span><br>
           );
         </code>
-        <a href="lib/segment.js">Open in Browser</a><br>
+        <a href="segment.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/segment.js">View on GitHub</a>
       </article>
       <article class="shader">
@@ -314,7 +314,7 @@
           &nbsp;&nbsp;}<br>
           });
         </code>
-        <a href="lib/shader.js">Open in Browser</a><br>
+        <a href="shader.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/shader.js">View on GitHub</a>
       </article>
       <article class="shape">
@@ -330,7 +330,7 @@
           ]);<br>
           <span class="var">tri</span>.rotation = Math.PI / <span class="num">4</span>;
         </code>
-        <a href="lib/shape.js">Open in Browser</a><br>
+        <a href="shape.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/shape.js">View on GitHub</a>
       </article>
       <article class="sorder">
@@ -345,7 +345,7 @@
           <span class="var">player</span>.x = <span class="num">100</span>;<br>
           <span class="var">update</span>(<span class="num">1</span> / <span class="num">60</span>);
         </code>
-        <a href="lib/sorder.js">Open in Browser</a><br>
+        <a href="sorder.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/sorder.js">View on GitHub</a>
       </article>
       <article class="sound">
@@ -358,7 +358,7 @@
           <span class="var">snd</span>.data[<span class="num">0</span>][<span class="num">0</span>] = <span class="num">1</span>;<br>
           <span class="var">snd</span>.play();
         </code>
-        <a href="lib/sound.js">Open in Browser</a><br>
+        <a href="sound.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/sound.js">View on GitHub</a>
       </article>
       <article class="tinylib">
@@ -371,7 +371,7 @@
           shuffle(<span class="var">nums</span>);<br>
           <span class="key">const</span> <span class="var">id</span> = hash(<span class="str">'hello'</span>);
         </code>
-        <a href="lib/tinylib.js">Open in Browser</a><br>
+        <a href="tinylib.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/tinylib.js">View on GitHub</a>
       </article>
       <article class="vec">
@@ -384,7 +384,7 @@
           <span class="key">const</span> <span class="var">v2</span> = vec2(<span class="num">3</span>, <span class="num">4</span>);<br>
           <span class="key">const</span> <span class="var">sum</span> = <span class="var">v1</span>.add(<span class="var">v2</span>);
         </code>
-        <a href="lib/vec.js">Open in Browser</a><br>
+        <a href="vec.js">Open in Browser</a><br>
         <a href="https://github.com/Magnogen/source/blob/main/vec.js">View on GitHub</a>
       </article>
     </section>
