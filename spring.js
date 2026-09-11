@@ -51,4 +51,34 @@ const spring = (initial, options = {}) => {
       yd[i] += dt * (x[i] + k3 * xd - y[i] - k1 * yd[i]) / k2_stable;
     }
   };
+
+  return {
+    [IS_SPRING]: true,
+    update,
+    get value() { return adapter.fromVec(y); },
+    set value(v) {
+      x = adapter.toVec(v);
+      xp = x.slice();
+      y = x.slice();
+      yd = x.map(() => 0);
+    },
+    get target() { return adapter.fromVec(x); },
+    set target(v) { x = adapter.toVec(v); },
+    get velocity() { return adapter.fromVec(yd); },
+    set velocity(v) { yd = adapter.toVec(v); },
+    get frequency() { return frequency; },
+    set frequency(v) { frequency = v; updateConstants(); },
+    get stiffness() { return stiffness; },
+    set stiffness(v) { stiffness = v; updateConstants(); },
+    get response() { return response; },
+    set response(v) { response = v; updateConstants(); },
+    set(v) { this.value = v; return this; },
+    to(v) { this.target = v; return this; },
+    impulse(v) {
+      const dv = adapter.toVec(v);
+      for (let i = 0; i < yd.length; i++) yd[i] += dv[i];
+      return this;
+    },
+    stop() { this.value = adapter.fromVec(y); return this; },
+  };
 };
