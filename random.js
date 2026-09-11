@@ -65,8 +65,8 @@ const Rng = (hash = Mulberry()) => {
 
   const rand = (a = 1, b = 0) => (
     b < a ?
-      b + (state = hash(state)) * (a - b)
-      : a + (state = hash(state)) * (b - a)
+      b + (state = hash(state * 0x100000000)) * (a - b)
+      : a + (state = hash(state * 0x100000000)) * (b - a)
   );
   const randpom = (a = 1, b = -a) => rand(a, b);
   const randbin = (mean = 0, stdev = 1) => { // modified from https://stackoverflow.com/a/36481059/7429566
